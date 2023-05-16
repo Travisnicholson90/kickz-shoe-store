@@ -1,0 +1,13 @@
+.icon {
+    width: 45px;
+    margin-left: auto;
+}
+
+
+.open {
+    rotate: 90deg;
+}
+
+.close {
+    rotate: 0;
+}
