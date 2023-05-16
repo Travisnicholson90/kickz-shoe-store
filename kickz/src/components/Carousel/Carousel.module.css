@@ -1,0 +1,40 @@
+.swiper {
+    display: flex;
+    justify-content: center;
+    margin-inline: auto;
+}
+
+.img {
+    z-index: 1;
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.btn {
+    z-index: 50;
+    position: absolute;
+    color: var(--Light-grayish-blue);
+    width: clamp(4rem, 12vw + 1rem, 15rem);
+    padding: .5rem .5rem;
+    bottom: 13%;
+    left: 50%;
+    border-radius: 12px;
+    transform: translateX(-50%);
+    background: transparent;
+    font-size: clamp(.5rem, 2vw, 1.5rem);
+    border: 1px solid var(--Light-grayish-blue);
+}
+
+.btn:hover {
+    color: var(--btn);
+    cursor: pointer;
+    border: 1px solid var(--btn);
+}
+
+.brand {
+    font-family: var(--ff-brand);
+    letter-spacing: 4px;
+}
