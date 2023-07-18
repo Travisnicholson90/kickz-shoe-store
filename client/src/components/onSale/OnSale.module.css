@@ -1,0 +1,82 @@
+.wrapper {
+    margin: 5rem 2rem 2rem 3rem;
+    margin-inline: auto;
+}
+
+.card-container{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  padding: 1rem 1rem;
+  
+  overflow-x: scroll;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline mandatory;
+}
+
+.heading {
+  font-weight: var(--fw-700);
+  margin-left: 2rem;
+  font-size: 1.8rem;
+}
+
+.card {
+  min-width: 16rem;
+  gap: 1rem;
+  font-size: var(--fs);
+}
+
+.img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.brand {
+    margin-top: .5rem;
+    color: var(--Very-Dark-blue);
+    font-weight: var(--fw-700);
+}
+
+.name {
+    color: var(--Dark-grayish-blue);
+    font-weight: var(--fw-400);
+}
+
+.price {
+    color: var(--Very-Dark-blue);
+    font-weight: var(--fw-700);
+}
+
+
+/* scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scroller);
+    border-radius: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: #f5f5f5;
+  }
+  
+  @media (hover: none) {
+    ::-webkit-scrollbar {
+      width: 0px;
+    }
+  }
+ 
+  .heart {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }

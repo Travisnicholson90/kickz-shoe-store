@@ -1,0 +1,166 @@
+
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, auto);
+        max-width: 100vw;
+        padding: 2rem 1rem;
+        align-items: center;
+        background-color: inherit;
+        overflow-x: hidden;
+        margin-top: 8rem;
+    }
+
+    .customer-service,
+    .about-us {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .header {
+        color: var(--Very-dark-blue);
+        font-weight: var(--fw-700);
+    }
+
+    .kickz {
+        font-family: var(--ff-brand);
+    }
+
+    .list {
+        list-style: none;
+    }
+    .list li {
+        margin: .5rem 0;
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        color: var(--Dark-grayish-blue);
+    }
+
+    .form-control {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+
+    .form-control label {
+        font-weight: var(--fw-700);
+        padding: .5rem 0;
+    }
+
+    .input {
+        padding: .5rem 0 .3rem .5rem;
+        border-radius: 12px;
+        outline: none;
+        border: none;
+    }
+
+    .input.error {
+        border: 1px solid red;
+        animation: shake .82s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    .error-message {
+        color: red;
+        font-size: .8rem;
+        padding: .2rem 0;
+    }
+    
+
+    .btn {
+        width: 50%;
+        margin: 1rem 0;
+        text-transform: capitalize;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+        opacity: .5;
+    }
+
+    .subscribe-tcs {
+        padding-top: .5rem;
+        font-size: clamp(.5rem, 1vw, .8rem);
+        color: var(--Dark-grayish-blue);
+    }
+
+    .tcs-link {
+        text-decoration: underline;
+        color: var(--Dark-grayish-blue);
+    }
+
+    .bottom-footer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        justify-items: flex-start;
+        padding: 2rem 1rem 1rem 1rem;;
+
+    }
+
+ @media screen and (max-width: 850px){    
+    .bottom-footer {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-items: center;
+        padding: 2rem 1rem 1rem 1rem;
+    }
+    .bottom-footer > * {
+        margin: .5rem 0;
+    }
+}
+    .social-media {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+
+.banking-cards img,
+.social-media-icons img{
+    
+    width: 40px;
+    gap: 1rem;
+}
+
+.banking-cards, .social-media-icons {
+    display: flex;
+    gap: .5rem;
+}
+
+.copyright {
+    color: var(--Dark-grayish-blue);
+}
+
+.brand {
+    justify-self: flex-start;
+    text-align: center;
+}
+
+.brand h3 {
+    font-weight: var(--fw-700);
+    color: var(--Dark-grayish-blue);
+}
+
+.success-message {
+    color: green;
+    font-size: .8rem;
+    padding: .2rem 0;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

@@ -1,0 +1,4 @@
+.sizes input::placeholder {
+    color: blue;
+    text-align: center;
+}
