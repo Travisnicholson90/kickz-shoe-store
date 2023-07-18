@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_SHOE_BY_PRICE } from "../../utils/queries";
 import { Link } from "react-router-dom";
-import classes from "./onSale.module.css";
+import classes from "./OnSale.module.css";
 import Heart from '../UI/Heart/Heart'
 //import { useWishList } from "../../context/wishList";
 
