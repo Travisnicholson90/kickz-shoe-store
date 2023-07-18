@@ -1,0 +1,7 @@
+.img {
+    max-width: 10rem;
+    object-fit: cover;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+}
+

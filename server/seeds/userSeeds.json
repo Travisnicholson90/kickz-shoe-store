@@ -1,0 +1,17 @@
+[
+  {
+    "firstName": "Picolas",
+    "surname": "Cage",
+    "email": "picolas.cage@gmail.com",
+    "password": "test1234",
+    "address": {
+      "unit": 8,
+      "streetNumber": 221,
+      "streetName": "Strawberry Street",
+      "suburb": "Strawberry hills",
+      "state": "NSW",
+      "postcode": 2012
+    },
+    "contactNumber": "0412345678"
+  }
+]
