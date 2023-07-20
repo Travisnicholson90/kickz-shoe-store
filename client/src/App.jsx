@@ -64,8 +64,10 @@ import ShoeOverview from './pages/ShoeOverview';
 import Checkout from './pages/Checkout';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  // uri: 'http://localhost:3001/graphql',
+  uri: import.meta.env.VITE_API_BASE_URL + '/graphql',
 });
+
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
