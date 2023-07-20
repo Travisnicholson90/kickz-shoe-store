@@ -65,7 +65,7 @@ import Checkout from './pages/Checkout';
 
 const httpLink = createHttpLink({
   // uri: 'http://localhost:3001/graphql',
-  uri: import.meta.env.VITE_API_BASE_URL + '/graphql',
+  uri: import.meta.env.VITE_API_BASE_URL + 'graphql',
 });
 
 
