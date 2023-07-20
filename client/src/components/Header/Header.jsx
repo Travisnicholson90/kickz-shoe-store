@@ -4,11 +4,10 @@ import classes from './Header.module.css';
 import { Link } from 'react-router-dom';
 import Cart from '../../assets/images/cart.svg';
 import heart from '../../assets/images/heart.svg';
-import { useLogout } from '../../hooks/useLogout';
+import Auth from '../../utils/auth';
 import MyModal from '../../pages/Cart';
 
 const Header = () => {
-  const { logout } = useLogout();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // open model function
@@ -20,12 +19,9 @@ const Header = () => {
     setIsModalOpen(false);
   };
 
-  // get the user from local storage
-  const user = localStorage.getItem('kickz');
-  
   // logout the user
   const logoutHandler = () => { 
-    logout();
+    Auth.logout()
   }
 
   return (
@@ -517,7 +513,7 @@ const Header = () => {
           <img className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={heart} alt="heart-icon" />
           </Link>
             <img onClick={openModal} className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={Cart} alt="cart-icon" />
-          {!user && (
+          {!Auth.loggedIn() && (
             <Link to="login">
               <button className={classes.Btn}>
                 <div className={classes.sign}>
@@ -532,7 +528,7 @@ const Header = () => {
               </button>
             </Link>
           )}
-          {user && (
+          {Auth.loggedIn() && (
             <Link to="logout">
               <button onClick={logoutHandler} className={classes.Btn}>
                 <div className={classes.sign}>

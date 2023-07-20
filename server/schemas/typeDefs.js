@@ -9,6 +9,7 @@ const typeDefs = gql`
         password: String    
         address: [Address]
         contactNumber: String
+        orders: [Order]
     }
 
     type Address {
@@ -33,6 +34,12 @@ const typeDefs = gql`
         stock: Int
     }
 
+    type Order {
+    _id: ID
+    purchaseDate: String
+    products: [Shoes]
+  }
+
     type Category {
         name: String
     }
@@ -45,6 +52,10 @@ const typeDefs = gql`
         token: ID!
         user: User
     }
+
+    type Checkout {
+    session: ID
+  }
 
     input AddressInput {
         unit: String
@@ -75,6 +86,8 @@ const typeDefs = gql`
         searchShoeByCategoryWomens(category: String!): [Shoes]
         searchShoeByBrand(brand: String!): [Shoes]
         searchShoeByPrice(maxPrice: Float!): [Shoes]
+        order(_id: ID!): Order
+        checkout(shoes: [ID]!): Checkout
     }
 
     type Mutation {
@@ -83,6 +96,7 @@ const typeDefs = gql`
         removeUser(userId: ID!): User
         addAddressToUser(userId: ID!, address: AddressInput!): User
         updateUser(userId: ID!, user: UserInput!): User
+        addOrder(shoes: [ID]!): Order
     }
     
 `;

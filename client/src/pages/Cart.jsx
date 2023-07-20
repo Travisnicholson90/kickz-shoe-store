@@ -1,12 +1,22 @@
+import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 import { useCartContext } from "../context/cartContext";
 import classes from "./Cart.module.css";
+import { loadStripe } from "@stripe/stripe-js";
+import { CHECKOUT } from "../utils/queries";
+import { useQuery, useLazyQuery } from "@apollo/client";
+
+//  stripe promise is the connection to the stripe api key
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
 
 export default function MyModal({ isOpen, closeModal }) {
+  const [ isCheckingOut, setIsCheckingOut ] = useState(false)
   const { state, dispatch } = useCartContext();
   const { cart } = state;
+
+  const [getCheckout, { data }] = useLazyQuery(CHECKOUT)
 
   const onRemoveFromCart = (e) => {
     const id = e.target.value
@@ -16,6 +26,33 @@ export default function MyModal({ isOpen, closeModal }) {
   const onClearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
   };
+
+  const handleCheckout = async () => {
+    setIsCheckingOut(true)
+    const cartItemIds = cart.map(item => item.id)
+
+    try {
+      const { data } = await getCheckout({
+        query: CHECKOUT,
+        variables: { shoes: cartItemIds }
+      })
+      
+      const { sessionId } = data.checkout
+      
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: session,
+      });
+
+      if (error) {
+        console.log('Error redirecting to stripe checkout', error)
+      }
+    } catch (error) {
+      console.log('Error checking out', error)
+    } finally {
+      setIsCheckingOut(false)
+    }
+  }
 
   return (
     <div>
@@ -74,9 +111,7 @@ export default function MyModal({ isOpen, closeModal }) {
                               <p>${item.price}</p>
                             </div>
                             <div className="flex gap-5 items-start">
-                              <Link to={`checkout/${item.id}`}>
-                              <button onClick={closeModal} className="bg-blue-600 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-blue-500">Checkout</button>
-                              </Link>
+                              <button onClick={() => {handleCheckout(); closeModal();}}  className="bg-blue-600 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-blue-500">Checkout</button>
                               <button value={item.id} onClick={onRemoveFromCart} className="bg-red-500 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-red-400">Delete</button>
                             </div>
                           </div>
