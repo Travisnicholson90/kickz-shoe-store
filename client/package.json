@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": "https://kickz-ecommerce-store-87d5ac8dc576.herokuapp.com/",
+  // "proxy": "https://kickz-ecommerce-store-87d5ac8dc576.herokuapp.com/",
   "scripts": {
     "start": "vite",
     "build": "vite build",
