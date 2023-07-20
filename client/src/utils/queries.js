@@ -193,3 +193,11 @@ export const QUERY_SHOE_BY_PRICE = gql`
     }
   }
 `;
+
+export const CHECKOUT = gql`
+  query Checkout($shoes: [ID]!) {
+    checkout(shoes: $shoes) {
+      session
+    }
+  }
+`;

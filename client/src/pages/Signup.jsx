@@ -1,15 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-import { useAuthContext } from '../hooks/useAuthContext';
+import Auth from '../utils/auth';
 
 const SignupPage = () => {
     const form = useForm();
     const { register, handleSubmit, formState } = form;
     const { errors } = formState;
-
-    // get the dispatch method from the useContext Hook
-    const { dispatch } = useAuthContext();
 
     const [addUser] = useMutation(ADD_USER);
 
@@ -33,17 +30,8 @@ const SignupPage = () => {
 
         //spread the user and token in a variable to set to local storage
         const loggedInUser = { ...userData, token: token };
-        console.log(loggedInUser);
+        Auth.login(loggedInUser.token);
 
-        if (loggedInUser) {
-          localStorage.setItem("kickz", JSON.stringify(loggedInUser));
-        }
-
-        // if success redirect user to home page
-        window.location.replace("/");
-
-        // dispatch the user and token to the reducer
-        dispatch({ type: "LOGIN", payload: { user: loggedInUser } });
       } catch (err) {
         console.error("graphQL error", err);
       }
