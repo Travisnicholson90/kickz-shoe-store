@@ -192,7 +192,7 @@ const resolvers = {
 
         const line_items = [];
 
-        const { shoes } = await order.populate('shoes')
+        // find the orders in the users profile and the the order
 
         for (let i = 0; i < shoes.length; i++) {
             const shoe = await stripe.shoe.create({
@@ -317,18 +317,25 @@ const resolvers = {
             console.log(err);
         }
     },
-    addOrder: async (parent, { shoes }, context) => {
-      console.log(context);
-      if (context.user) {
-        const order = new Order({ shoes });
-  
-        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
-  
-        return order;
-      }
-  
-      throw new AuthenticationError('Not logged in');
-    },
+    addOrder: async (parent, { userId, shoeId }) => {
+        try {
+          const user = await User.findById(userId);
+          if (!user) {
+            throw new Error("User not found");
+          }
+      
+          const order = new Order({ shoes: shoeId });
+          user.orders.push(order);
+      
+          const updatedUser = await user.save();
+          return updatedUser;
+        } catch (err) {
+          console.log(err);
+          throw err;
+        }
+      },
+      
+      
   },
 };
 

@@ -37,7 +37,7 @@ const FeaturedBrand = () => {
             <h4 className={classes.price}>$ {shoe.price}</h4>
             <Link to={`shoe/${shoe._id}`}>
               <button className="mt-3 bg-blue-500 px-2 py-1 text-white rounded-2xl">
-                Buy Now
+                Show More
               </button>
             </Link>
           </div>

@@ -61,7 +61,7 @@ import SaleLaces from './pages/Sale/Laces';
 import SaleHats from './pages/Sale/Hats';
 // shoe overview page
 import ShoeOverview from './pages/ShoeOverview';
-import Checkout from './pages/Checkout';
+// import Checkout from './pages/Checkout';
 
 const httpLink = createHttpLink({
   // uri: 'http://localhost:3001/graphql',
@@ -142,7 +142,7 @@ const router = createBrowserRouter(
       <Route path='womens/casual/shoe/:id' element={ <ShoeOverview /> } />
       <Route path='sale' element={ <SalePage /> } />
       <Route path='cart' element={ <CartPage /> } />
-      <Route path='checkout/:id' element={ <Checkout /> } /> 
+      {/* <Route path='checkout/:id' element={ <Checkout /> } />  */}
       <Route path='wishlist' element={ <WishListPage /> } />
       <Route path='login' element={ <LoginPage /> } />
       <Route path='signup' element={ <SignupPage /> } />

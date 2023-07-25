@@ -5,6 +5,7 @@ import { QUERY_SHOE_BY_ID } from "../utils/queries";
 import ListBox from "../components/ListBox/ListBox";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Scrollbar } from 'swiper';
+import Heart from "../components/UI/Heart/Heart";
 
 // images 
 import visa from '../assets/images/visa.svg'; 
@@ -48,7 +49,7 @@ const ShoeOverview = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 items-center px-3 lg:grid-cols-2">
-          <div className="flex p-4">
+            <div className="flex p-4">
             {shoeData.images?.length > 0 ? (
               <Swiper
                 modules={[Autoplay, Pagination, Scrollbar]}
@@ -68,7 +69,12 @@ const ShoeOverview = () => {
             )}
           </div>
           <div className="lg:mx-auto w-full">
+            <div className="flex items-center w-full justify-between">
             <h2 className="text-4xl lg:text-5xl font-bold ms-3 my-3">{brand}</h2>
+            <div className="lg:mr-10">
+             <Heart id={id} name={name} brand={brand} price={price} images={images}  /> 
+            </div>
+            </div>
             <h3 className="text-3xl font-normal ms-3">{name}</h3>
             <h4 className="text-2xl font-bold ms-3 my-3">$ {price}</h4>
             <div className="m-5">
