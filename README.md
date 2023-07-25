@@ -43,7 +43,8 @@ Kickz is an e-commerce store, selling shoes and shoe related products.
 - N/A
 ## Questions
 ### links
-- [GitHub Username](https://github.com/Travisnicholson90)
+- [GitHub Repo](https://github.com/Travisnicholson90/kickz-shoe-store)
+- [heroku](https://kickz-ecommerce-store-87d5ac8dc576.herokuapp.com/)
 ### Email
 - For any further question relating to this project, please contact me via email.
 [Travis Nicholson](mailto::nicholson_travis@hotmail.com)
