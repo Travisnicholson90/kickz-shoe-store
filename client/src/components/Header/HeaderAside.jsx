@@ -6,18 +6,27 @@ import classes from './Header.module.css';
 import Cart from '../../assets/images/cart.svg';
 import heart from '../../assets/images/heart.svg';
 import MyModal from '../../pages/Cart';
+import WishListModal from '../../pages/Wishlist';
 
 const HeaderAside = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isWishListModalOpen, setIsWishListModalOpen] = useState(false);
+
 
   // open model function
   const openModal = () => {
     setIsModalOpen(true);
   };
+  const openWishListModal = () => {
+    setIsWishListModalOpen(true);
+  };
   // close modal function
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  const closeWishListModal = () => {
+    setIsWishListModalOpen(false);
   };
 
   // logout the user
@@ -32,7 +41,7 @@ const HeaderAside = () => {
     return (
     <div className='flex bg-slate-900 py-3'>
     <div className='flex w-full'>
-        <div className='relative z-50 w-full flex items-center px-3'>
+        <div className='relative z-50 w-full flex items-center justify-between px-3'>
           <div onClick={navbarHandler} className='z-50'>
           <input id={classes.checkbox2} type='checkbox' />
             <label className={`${classes.toggle} ${classes.toggle2} w-12`} id={classes.checkbox}>
@@ -41,15 +50,15 @@ const HeaderAside = () => {
             <div id={classes.bar6} className={classes.bars}></div>
             </label> 
           </div>
-          <div className='text-white ml-20 text-3xl'>KICKZ</div>
-          <div className='flex ml-auto'>
+          <div className='text-white text-3xl ml-10'>KICKZ</div>
+          <div className='flex ml-auto gap-2'>           
+          <img onClick={openWishListModal} className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={heart} alt="heart-icon" />
           <img onClick={openModal} className='w-8 ml-auto hover:scale-125 hover:cursor-pointer transition-all duration-300' src={Cart} alt="cart-icon" />
           </div>
         </div>
         {/* navbar */}
 
         { showNavbar && 
-
         <div className='absolute flex flex-col gap-3 items-start pt-20 px-1 h-screen w-full bg-gray-900 text-white z-30'>
             <Menu>
         {/* footwear */}
@@ -403,10 +412,6 @@ const HeaderAside = () => {
         </Transition>
       </Menu>
       <div className="flex gap-8 items-center mt-60 ml-10">
-          <Link to='wishlist'>
-          <img className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={heart} alt="heart-icon" />
-          </Link>
-
           {!Auth.loggedIn() && (
             <Link to="login">
               <button className={classes.Btn}>
@@ -442,6 +447,12 @@ const HeaderAside = () => {
           }
     </div>
       {isModalOpen && <MyModal isOpen={isModalOpen} closeModal={closeModal} />}
+      {isWishListModalOpen && (
+          <WishListModal
+            isWishListModalOpen={isWishListModalOpen}
+            closeWishListModal={closeWishListModal}
+          />
+        )}
     </div> 
     )
     

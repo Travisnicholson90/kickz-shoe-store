@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import { useCartContext } from "../context/cartContext";
 import classes from "./Cart.module.css";
 import { loadStripe } from "@stripe/stripe-js";
@@ -36,12 +37,10 @@ export default function MyModal({ isOpen, closeModal }) {
         query: CHECKOUT,
         variables: { shoes: cartItemIds }
       })
-      
-      const { sessionId } = data.checkout
-      
+           
       const stripe = await stripePromise;
       const { error } = await stripe.redirectToCheckout({
-        sessionId: session,
+        sessionId: data.checkout.sessionId,
       });
 
       if (error) {
@@ -111,7 +110,9 @@ export default function MyModal({ isOpen, closeModal }) {
                               <p>${item.price}</p>
                             </div>
                             <div className="flex gap-5 items-start">
-                              <button onClick={() => {handleCheckout(); closeModal();}}  className="bg-blue-600 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-blue-500">Checkout</button>
+                              <Link to={`checkout/${item.id}`}>
+                              <button onClick={() => closeModal()}  className="bg-blue-600 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-blue-500">Checkout</button>
+                              </Link>
                               <button value={item.id} onClick={onRemoveFromCart} className="bg-red-500 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-red-400">Delete</button>
                             </div>
                           </div>

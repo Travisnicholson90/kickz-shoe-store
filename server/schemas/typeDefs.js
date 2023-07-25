@@ -96,7 +96,7 @@ const typeDefs = gql`
         removeUser(userId: ID!): User
         addAddressToUser(userId: ID!, address: AddressInput!): User
         updateUser(userId: ID!, user: UserInput!): User
-        addOrder(shoes: [ID]!): Order
+        addOrder(userId: ID!, shoeId: [ID]!): Order
     }
     
 `;

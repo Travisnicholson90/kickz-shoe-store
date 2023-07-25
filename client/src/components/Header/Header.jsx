@@ -6,17 +6,25 @@ import Cart from '../../assets/images/cart.svg';
 import heart from '../../assets/images/heart.svg';
 import Auth from '../../utils/auth';
 import MyModal from '../../pages/Cart';
+import WishListModal from '../../pages/Wishlist';
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isWishListModalOpen, setIsWishListModalOpen] = useState(false);
 
   // open model function
   const openModal = () => {
     setIsModalOpen(true);
   };
+  const openWishListModal = () => {
+    setIsWishListModalOpen(true);
+  };
   // close modal function
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  const closeWishListModal = () => {
+    setIsWishListModalOpen(false);
   };
 
   // logout the user
@@ -509,10 +517,8 @@ const Header = () => {
         </Menu>
         {/* cart / login  */}
         <div className="flex gap-8 items-center ml-auto">
-          <Link to='wishlist'>
-          <img className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={heart} alt="heart-icon" />
-          </Link>
-            <img onClick={openModal} className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={Cart} alt="cart-icon" />
+          <img onClick={openWishListModal} className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={heart} alt="heart-icon" />
+          <img onClick={openModal} className='w-8 hover:scale-125 hover:cursor-pointer transition-all duration-300' src={Cart} alt="cart-icon" />
           {!Auth.loggedIn() && (
             <Link to="login">
               <button className={classes.Btn}>
@@ -546,6 +552,12 @@ const Header = () => {
         </div>
       </div>
       {isModalOpen && <MyModal isOpen={isModalOpen} closeModal={closeModal} />}
+      {isWishListModalOpen && (
+          <WishListModal
+            isWishListModalOpen={isWishListModalOpen}
+            closeWishListModal={closeWishListModal}
+          />
+        )}
     </div>
   );
 }
