@@ -8,6 +8,7 @@ const typeDefs = gql`
         email: String
         password: String    
         address: [Address]
+        cart: [Cart]
         contactNumber: String
         orders: [Order]
     }
@@ -19,6 +20,15 @@ const typeDefs = gql`
         suburb: String
         state: String
         postcode: String
+    }
+
+    type Cart {
+        _id: ID
+        name: String
+        brand: String
+        quantity: String
+        size: String
+        price: Int
     }
 
     type Shoes {
@@ -66,12 +76,21 @@ const typeDefs = gql`
         postcode: String
     }
 
+    input CartInput {
+        name: String
+        brand: String
+        quantity: String
+        size: String
+        price: Int
+    }
+    
     input UserInput {
         firstName: String
         surname: String
         email: String
         password: String
         address: [AddressInput]
+        cart: [CartInput]
         contactNumber: String
     }
 
@@ -95,6 +114,8 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         removeUser(userId: ID!): User
         addAddressToUser(userId: ID!, address: AddressInput!): User
+        addCartToUser(userId: ID!, cart: CartInput!): User
+        removeCart(userId: ID!, cartId: ID!): User
         updateUser(userId: ID!, user: UserInput!): User
         addOrder(userId: ID!, shoeId: [ID]!): Order
     }

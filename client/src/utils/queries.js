@@ -38,6 +38,12 @@ export const QUERY_USER_BY_ID = gql`
         state
         postcode
       }
+      cart {
+        name
+        brand
+        quantity
+        price
+      }
     }
   }
 `;

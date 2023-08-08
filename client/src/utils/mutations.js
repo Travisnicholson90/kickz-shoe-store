@@ -65,3 +65,42 @@ export const REMOVE_USER = gql`
     }
   }
 `;
+
+export const ADD_ADDRESS_TO_USER = gql`
+  mutation AddAddressToUser($userId: ID!, $address: AddressInput!) {
+    addAddressToUser(userId: $userId, address: $address) {
+      _id
+      firstName
+      surname
+      email
+      password
+      address {
+        unit
+        streetNumber
+        streetName
+        suburb
+        state
+        postcode
+      }
+    }
+  }`;
+
+  export const ADD_CART_TO_USER = gql`
+  mutation AddCartToUser($userId: ID!, $cart: CartInput!) {
+    addCartToUser(userId: $userId, cart: $cart) {
+      _id
+      firstName
+      surname
+      email
+      password
+      cart {
+        name
+        brand
+        quantity
+        size
+        price
+      }
+    }
+  }`;
+
+

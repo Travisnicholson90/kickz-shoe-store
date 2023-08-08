@@ -56,7 +56,7 @@ return (
                     {errors.size && <span className="text-red-500">Please select a shoe size</span>}
                     </div>
                     <div>
-                    <select className=' w-full text-xl p-1 rounded-xl ps-2 outline-none bg-blue-600 text-white' name="qty" id="qty" {...register('qty', { required: true })}>
+                    <select className=' w-full text-xl p-1 rounded-xl ps-2 outline-none bg-blue-600 text-white' name="quantity" id="quantity" {...register('quantity', { required: true })}>
                         <option value="">Qty</option>
                         <option value="1">1</option>
                         <option value="2">2</option>

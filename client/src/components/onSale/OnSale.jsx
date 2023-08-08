@@ -27,7 +27,7 @@ const SaleShoes = () => {
         {shoes.map((shoe) => (
           <div className={`${classes.card} relative`} key={shoe._id}>
             <img
-              className={`${classes.img}`}
+              className={`${classes.img} shadow-xl`}
               src={shoe.images[0].img}
               alt={shoe.name}
             />

@@ -14,7 +14,6 @@ import { setContext } from '@apollo/client/link/context';
 // import pages
 import RootLayout from './layouts/RootLayout';
 import HomePage from './pages/Home';
-import SalePage from './pages/Sale';
 import CartPage from './pages/Cart';
 import WishListPage from './pages/Wishlist';
 import LoginPage from './pages/Login';
@@ -61,6 +60,8 @@ import SaleLaces from './pages/Sale/Laces';
 import SaleHats from './pages/Sale/Hats';
 // shoe overview page
 import ShoeOverview from './pages/ShoeOverview';
+import Payments from './pages/Payments';
+import Completion from './components/Completion';
 // import Checkout from './pages/Checkout';
 
 const httpLink = createHttpLink({
@@ -140,12 +141,13 @@ const router = createBrowserRouter(
       <Route path='mens/dress/shoe/:id' element={ <ShoeOverview /> } />
       <Route path='mens/casual/shoe/:id' element={ <ShoeOverview /> } />
       <Route path='womens/casual/shoe/:id' element={ <ShoeOverview /> } />
-      <Route path='sale' element={ <SalePage /> } />
       <Route path='cart' element={ <CartPage /> } />
       {/* <Route path='checkout/:id' element={ <Checkout /> } />  */}
       <Route path='wishlist' element={ <WishListPage /> } />
       <Route path='login' element={ <LoginPage /> } />
       <Route path='signup' element={ <SignupPage /> } />
+      <Route path='payments' element={ <Payments /> } />
+      <Route path='completion' element={ <Completion /> } />
     </Route>
   )
 )
