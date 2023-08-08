@@ -28,7 +28,7 @@ const FeaturedBrand = () => {
         {shoes.map((shoe) => (
           <div className={`${classes.card}`} key={shoe._id}>
             <img
-              className={`${classes.img}`}
+              className={`${classes.img} shadow-2xl`}
               src={shoe.images[0].img}
               alt={shoe.name}
             />

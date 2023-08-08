@@ -1,6 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
 const AddressSchema = require('./Address');
 const Order = require('./Order');
+const Cart = require('./Cart');
 const  bcrypt = require('bcrypt');
 
 //  users schema
@@ -29,6 +30,7 @@ const UserSchema = new Schema(
       trim: true,
     },
     address: [AddressSchema],
+    cart: [Cart.schema],
 
     contactNumber: {
       type: String,

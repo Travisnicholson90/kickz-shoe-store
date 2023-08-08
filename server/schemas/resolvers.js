@@ -184,45 +184,6 @@ const resolvers = {
   
         throw new AuthenticationError('Not logged in');
       },
-
-      checkout: async (parent, args, context) => {
-
-        const url = new URL(context.headers.referer).origin;
-        const order = new Order({ shoes: args.shoes });
-
-        const line_items = [];
-
-        // find the orders in the users profile and the the order
-
-        for (let i = 0; i < shoes.length; i++) {
-            const shoe = await stripe.shoe.create({
-                name: shoes[i].name,
-                description: shoes[i].description,
-                images: [`${url}/images/${shoes[i].image}`]
-            });
-
-            const price = await stripe.prices.create({
-                shoe: shoe.id,
-                unit_amount: shoes[i].price * 100,
-                currency: 'aud',
-            });
-
-            line_items.push({
-                price: price.id,
-                quantity: 1
-            });
-        }
-
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items,
-            mode: 'payment',
-            success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${url}/`
-        });
-
-        return { session: session.id };
-    },
 },
 
   Mutation: {
@@ -298,6 +259,47 @@ const resolvers = {
         }
     },
 
+    // add to a user's cart
+    addCartToUser: async (parent, { userId, cart }, context) => {
+        try {
+            // update the user with the new cart.
+            const updateUserCart = await User.findByIdAndUpdate(
+                userId,
+                // push the new cart to the cart array
+                { $push: { cart: cart } },
+                { new: true }
+            );
+
+            if (!updateUserCart) {
+                throw new Error('No user found');
+            }
+
+            console.log(updateUserCart);
+            return updateUserCart;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    removeCart: async (parent, { userId, cartId }, context) => {
+        try {
+            // delete the cart from the user
+            const user = await User.findByIdAndUpdate(
+                userId,
+                { $pull: { cart: { _id: cartId } } },
+                { new: true }
+            );
+
+            if (!user) {
+                throw new Error('No user found');
+            }
+
+            return user;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+        
     // update a user 
     updateUser: async (parent, { userId, user: updatedUser }, context) => {
         try {

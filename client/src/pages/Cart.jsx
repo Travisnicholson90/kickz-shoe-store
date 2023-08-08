@@ -1,23 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../context/cartContext";
 import classes from "./Cart.module.css";
-import { loadStripe } from "@stripe/stripe-js";
-import { CHECKOUT } from "../utils/queries";
-import { useQuery, useLazyQuery } from "@apollo/client";
-
-//  stripe promise is the connection to the stripe api key
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
-
+import Auth from '../utils/auth'
+import { useMutation } from '@apollo/client';
+import { ADD_CART_TO_USER } from '../utils/mutations';
 
 export default function MyModal({ isOpen, closeModal }) {
-  const [ isCheckingOut, setIsCheckingOut ] = useState(false)
+  const [ userId, setUserId ] = useState('');
   const { state, dispatch } = useCartContext();
   const { cart } = state;
 
-  const [getCheckout, { data }] = useLazyQuery(CHECKOUT)
+  useEffect(() => {
+  const profile = Auth.getProfile();
+  setUserId(profile.id)
+  }, []);
+
+  const [addCartToUser] = useMutation(ADD_CART_TO_USER);
+  
+  const onAddCartToUser = async () => {
+    
+    const userCart = {
+      name: 'Club C Revenge Shoes',
+      brand: 'Reebok',
+      price: 160,
+      quantity: "1",
+      size: "10",
+    }
+
+    try {
+      const { data } = await addCartToUser({
+        variables: { userId: userId, cart: userCart },
+      });
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const onRemoveFromCart = (e) => {
     const id = e.target.value
@@ -28,31 +49,10 @@ export default function MyModal({ isOpen, closeModal }) {
     dispatch({ type: 'CLEAR_CART' });
   };
 
-  const handleCheckout = async () => {
-    setIsCheckingOut(true)
-    const cartItemIds = cart.map(item => item.id)
-
-    try {
-      const { data } = await getCheckout({
-        query: CHECKOUT,
-        variables: { shoes: cartItemIds }
-      })
-           
-      const stripe = await stripePromise;
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: data.checkout.sessionId,
-      });
-
-      if (error) {
-        console.log('Error redirecting to stripe checkout', error)
-      }
-    } catch (error) {
-      console.log('Error checking out', error)
-    } finally {
-      setIsCheckingOut(false)
-    }
-  }
-
+  useEffect(() => {
+    console.log(cart);
+  }, []);
+  
   return (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -110,9 +110,6 @@ export default function MyModal({ isOpen, closeModal }) {
                               <p>${item.price}</p>
                             </div>
                             <div className="flex gap-5 items-start">
-                              <Link to={`checkout/${item.id}`}>
-                              <button onClick={() => closeModal()}  className="bg-blue-600 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-blue-500">Checkout</button>
-                              </Link>
                               <button value={item.id} onClick={onRemoveFromCart} className="bg-red-500 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-red-400">Delete</button>
                             </div>
                           </div>
@@ -131,6 +128,9 @@ export default function MyModal({ isOpen, closeModal }) {
                       Close
                     </button>
                     {cart.length > 0 && <button onClick={onClearCart} className="bg-red-500 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-red-400">Clear Cart</button>}
+                    <Link to={`/payments`}>
+                      <button onClick={() => {onAddCartToUser(); closeModal()}}  className="bg-blue-600 text-white px-2 py-1 rounded-2xl hover:cursor-pointer hover:bg-blue-500">Checkout</button>
+                    </Link>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
